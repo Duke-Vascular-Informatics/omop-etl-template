@@ -1,0 +1,5 @@
+source_field,source_description,source_type,omop_table,omop_column,concept_id,concept_label,concept_source,notes
+YOUR_PATIENT_ID_FIELD,Unique patient identifier,string,person,person_source_value,,,,"Replace with actual field name"
+YOUR_SEX_FIELD,Biological sex,categorical,person,gender_concept_id,,,,"Map values in value_map.csv"
+YOUR_PROC_DATE_FIELD,Index procedure date,date,visit_occurrence,visit_start_date,,,,"Format: YYYY-MM-DD or MM/DD/YYYY"
+YOUR_PROC_TYPE_FIELD,Procedure type code,categorical,procedure_occurrence,procedure_concept_id,,,,"Map values in value_map.csv"

@@ -1,0 +1,7 @@
+domain,source_field,source_value,source_label,concept_id,concept_label,concept_source,notes
+Person,YOUR_SEX_FIELD,YOUR_MALE_VALUE,Male,8507,Male,[vocab query],"Replace source_field and source_value"
+Person,YOUR_SEX_FIELD,YOUR_FEMALE_VALUE,Female,8532,Female,[vocab query],"Replace source_field and source_value"
+Condition,YOUR_COMORBIDITY_FIELD,Yes,Example comorbidity,0,REPLACE,[pretraining],"Run vocab query; replace 0 with verified concept_id"
+Procedure,YOUR_PROC_TYPE_FIELD,YOUR_PROC_CODE,Example procedure,0,REPLACE,[pretraining],"Run vocab query; replace 0 with verified concept_id"
+Observation,YOUR_OBSERVATION_FIELD,YOUR_OBS_VALUE,Example observation,0,REPLACE,[pretraining],"Run vocab query; replace 0 with verified concept_id"
+Measurement,YOUR_MEASUREMENT_FIELD,,Example measurement,0,REPLACE,[pretraining],"Run vocab query; replace 0 with verified concept_id"

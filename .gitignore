@@ -1,0 +1,29 @@
+# Data — never commit source or staged data
+data/
+*.sas7bdat
+*.xlsx
+*.xls
+*.zip
+
+# Block CSV everywhere except mappings/ (those are config, not data)
+*.csv
+!mappings/*.csv
+
+# R environment
+.Rproj.user/
+.Rhistory
+.RData
+renv/library/
+renv/staging/
+renv/sandbox/
+
+# Secrets
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Outputs
+output/
