@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it using the metadata below."
+type: software
+title: "OMOP ETL Template"
+abstract: >
+  A scaffold for loading registry CSV exports into an OMOP CDM v5.4 SQL Server schema.
+  Provides a reusable, HADES-compatible ETL framework for federating registry data
+  into observational research infrastructure.
+authors:
+  - family-names: Johnson
+    given-names: "Adam P."
+    name-suffix: "MD, MPH"
+    email: johnson.adam.p@gmail.com
+    orcid: "https://orcid.org/0000-0002-3014-6372"
+repository-code: "https://github.com/adam-mdmph/omop-etl-template"
+license: Apache-2.0
+date-released: "2026-05-17"
+keywords:
+  - OMOP CDM
+  - OHDSI
+  - ETL
+  - registry data
+  - observational research
+  - real-world evidence
+  - vascular surgery
