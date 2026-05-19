@@ -6,6 +6,11 @@ abstract: >
   A scaffold for loading registry CSV exports into an OMOP CDM v5.4 SQL Server schema.
   Provides a reusable, HADES-compatible ETL framework for federating registry data
   into observational research infrastructure.
+  Funding: Research reported in this publication was supported by the National
+  Center For Advancing Translational Sciences of the National Institutes of Health
+  under Award Number K12TR005435. The content is solely the responsibility of the
+  authors and does not necessarily represent the official views of the National
+  Institutes of Health.
 authors:
   - family-names: Johnson
     given-names: "Adam P."
