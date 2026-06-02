@@ -32,7 +32,15 @@ map_visit <- function(staged, person_map, config, connection_details) {
       visit_end_date        = as.Date(YOUR_DISCHARGE_DATE_FIELD),  # TODO; NA if outpatient
 
       visit_type_concept_id = 32827L,  # [vocab query] OMOP: EHR encounter
-      visit_source_value    = YOUR_ENCOUNTER_ID_FIELD  # TODO
+
+      # Flat-file provenance tag + encounter/procedure ID for row-level traceability.
+      # Format: "{source_file_tag}:{YOUR_PATIENT_ID_FIELD}"
+      # e.g. "REGISTRY_PROC_20231201:12345678"
+      # source_file is stamped on every staged row by stage_raw.R.
+      # All OMOP domain rows carry visit_occurrence_id; analysts recover the
+      # source flat file by joining to visit_occurrence on visit_occurrence_id
+      # and reading the leading token of visit_source_value (split on ":").
+      visit_source_value    = paste0(source_file, ":", YOUR_ENCOUNTER_ID_FIELD)  # TODO: replace YOUR_ENCOUNTER_ID_FIELD
     ) |>
     select(visit_occurrence_id, person_id, visit_concept_id,
            visit_start_date, visit_start_datetime,
