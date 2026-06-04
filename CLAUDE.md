@@ -31,6 +31,53 @@ When a user creates a new ETL repo from this template, help them:
 - `R/map_*.R` — one module per OMOP domain. Each reads from `data/staged/` and writes to the target CDM schema.
 - `docs/mapping_decisions.md` — append an entry for every non-obvious mapping choice.
 
+## File Placement (MANDATORY)
+
+**Every new R script created during ETL work must be written to this project's `scripts/`
+directory.** Always use the full absolute host path:
+
+```
+<repo-root>/scripts/<name>.R
+```
+
+Inside the dev container the same directory is mounted at a path matching the repo name. Always supply the full absolute path — never a relative path — when creating or editing any file in this project.
+
+**Never create ETL scripts in the workspace root or any other location.** The Write
+tool resolves paths against the host filesystem independently of the shell's
+working directory, so always supply the full absolute path.
+
+## Flat-File Provenance Convention
+
+When a source registry provides multiple flat files (e.g. procedure file + longitudinal
+follow-up file), every ETL run must declare which file it is loading via the
+`ETL_SOURCE_FILE_TAG` environment variable (see `config.R`). Adapt these tag patterns
+to your registry:
+
+| Tag pattern | Flat file | Example |
+|-------------|-----------|---------|
+| `REGISTRY_PROC_{YYYYMMDD}` | Index procedure file | `REGISTRY_PROC_20231201` |
+| `REGISTRY_LTF_{YYYYMMDD}`  | Longitudinal follow-up file | `REGISTRY_LTF_20231201` |
+
+The `YYYYMMDD` date matches the release date embedded in the source file name.
+
+**How provenance flows through the ETL:**
+
+1. `stage_raw.R` stamps `source_file = config$source_file_tag` on every row of
+   the staged data frame.
+2. `map_visit.R` writes `visit_source_value = "{source_file_tag}:{PATIENT_ID}"`
+   — e.g. `"REGISTRY_PROC_20231201:12345678"`.
+3. Every other OMOP domain row already carries `visit_occurrence_id`. Analysts
+   recover provenance by joining to `visit_occurrence` and reading
+   `visit_source_value`.
+
+**LTF files must create their own `visit_occurrence` rows** (follow-up visits)
+rather than linking follow-up observations to the index PROC visit. This ensures
+that `"REGISTRY_LTF:{ID}"` rows are never confused with `"REGISTRY_PROC:{ID}"`
+rows in temporal or provenance queries.
+
+**Never hardcode a flat-file name** in any `map_*.R` file. Always read it from
+`base$source_file` (which comes from `config$source_file_tag` via `stage_raw.R`).
+
 ## Concept ID Rules (three-tier lookup — mandatory)
 
 **Tier 1**: OHDSI Phenotype Library — check before deriving any concept set.

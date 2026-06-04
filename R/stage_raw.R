@@ -39,7 +39,18 @@ stage_raw <- function(config) {
   #   raw <- raw |> mutate(proc_date = as.Date(proc_date, "%m/%d/%Y"))
   # ---------------------------------------------------------------------------
 
-  message("Staged rows: ", nrow(raw), "  columns: ", ncol(raw))
+  # ---------------------------------------------------------------------------
+  # Stamp flat-file provenance on every row.
+  # source_file carries config$source_file_tag (e.g. "REGISTRY_PROC_20231201")
+  # so that map_visit.R can write it into visit_occurrence.visit_source_value
+  # and every downstream domain row inherits traceable provenance via
+  # visit_occurrence_id. Never hardcode a file name in map_*.R — always read
+  # from base$source_file (which comes from this column).
+  # ---------------------------------------------------------------------------
+  raw <- raw |> dplyr::mutate(source_file = config$source_file_tag)
+
+  message("Staged rows: ", nrow(raw), "  columns: ", ncol(raw),
+          "  source_file: ", config$source_file_tag)
 
   staged_path <- file.path(config$staged_dir, "staged.rds")
   if (!dir.exists(config$staged_dir)) dir.create(config$staged_dir, recursive = TRUE)
