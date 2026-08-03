@@ -17,7 +17,7 @@ authors:
     name-suffix: "MD, MPH"
     email: johnson.adam.p@gmail.com
     orcid: "https://orcid.org/0000-0002-3014-6372"
-repository-code: "https://github.com/adam-mdmph/omop-etl-template"
+repository-code: "https://github.com/Duke-Vascular-Informatics/omop-etl-template"
 license: Apache-2.0
 date-released: "2026-05-17"
 keywords:
