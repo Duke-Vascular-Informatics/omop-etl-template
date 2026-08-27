@@ -18,7 +18,7 @@ authors:
     email: johnson.adam.p@gmail.com
     orcid: "https://orcid.org/0000-0002-3014-6372"
 repository-code: "https://github.com/Duke-Vascular-Informatics/omop-etl-template"
-license: Apache-2.0
+license: GPL-2.0-only
 date-released: "2026-05-17"
 keywords:
   - OMOP CDM
