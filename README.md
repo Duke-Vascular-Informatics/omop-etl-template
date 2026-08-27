@@ -69,3 +69,9 @@ See `CLAUDE.md` for the three-tier lookup workflow.
 ## Funding
 
 Research reported in this publication was supported by the National Center For Advancing Translational Sciences of the National Institutes of Health under Award Number K12TR005435. The content is solely the responsibility of the authors and does not necessarily represent the official views of the National Institutes of Health.
+
+---
+
+## License
+
+Copyright 2026 Duke University. All Rights Reserved. The software is hereby licensed under the GNU GPL License v2 (see [LICENSE](LICENSE)).
