@@ -27,3 +27,7 @@ Thumbs.db
 
 # Outputs
 output/
+
+# Output of workflow/05_build_etl_bundle.sh (own git repo / zip fallback)
+portable/
+dist/

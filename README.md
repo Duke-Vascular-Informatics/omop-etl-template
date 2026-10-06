@@ -41,7 +41,9 @@ omop-etl-template/
 │   ├── 01_stage_raw.R     # Stage source CSV → data/staged/
 │   ├── 02_validate_staged.R # Row counts, nulls, value-set checks
 │   ├── 03_run_etl.R       # Execute all map_*.R modules
-│   └── 04_qc_omop.R       # Post-load QC against OMOP CDM
+│   ├── 04_qc_omop.R       # Post-load QC against OMOP CDM
+│   └── 05_build_etl_bundle.sh # (optional) package the ETL for a secure environment
+├── setup/etl_bundle_templates/  # generic launcher/setup scripts seeded into the bundle
 ├── config.R               # All settings — edit this first
 ├── run_etl.R              # One-shot orchestrator (calls workflow/01–04)
 └── CHECKLIST.md           # Go/no-go checklist before first ETL run
@@ -53,12 +55,18 @@ omop-etl-template/
 - Java 17 (Eclipse Adoptium) — required for `DatabaseConnector` / `rJava`
 - SQL Server target instance with a pre-created OMOP CDM v5.4 schema
 
-## Deployment
+## Deployment (optional bundle)
 
-Packaging and deploying the ETL into an institution's secure analytic environment
-(bundle building, site GitLab, authentication, package mirrors) is specific to each
-institution and is **not** part of this template. Keep that in your own site-deploy
-repo (bucket 4 of [charon](https://github.com/Duke-Vascular-Informatics/charon#multi-repo-analysis-pipeline)'s
+`workflow/05_build_etl_bundle.sh` packages the ETL (`R/`, `config.R`, `mappings/`,
+JDBC driver, and generic setup/launcher scripts from `setup/etl_bundle_templates/`)
+into a self-contained `portable/<name>/` bundle plus a dated zip in `dist/`, for running in a
+secure analytic environment that cannot reach your development workspace. It is
+environment-agnostic: it pushes to a git remote only if you set `ETL_BUNDLE_REMOTE`,
+and the seeded `setup_env.sh` / `install_r_packages.sh` / `run_etl.sh` source an
+optional, gitignored `site_env.sh` where you put anything specific to your site
+(module loads, conda, Kerberos, proprietary JDBC wrappers). Institution-specific
+routing and hardening belong in your own site-deploy repo (bucket 4 of
+[charon](https://github.com/Duke-Vascular-Informatics/charon#multi-repo-analysis-pipeline)'s
 Multi-Repo Analysis Pipeline).
 
 ## Data governance
