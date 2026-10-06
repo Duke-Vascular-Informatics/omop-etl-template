@@ -6,7 +6,7 @@ any tabular source registry (CSV / flat files) to **OMOP Common Data Model v5.4*
 ## How to use this template
 
 1. Click **Use this template → Create a new repository** on GitHub.
-2. Name the new repo `omop-etl-<source>` (e.g., `omop-etl-vqi-infra`).
+2. Name the new repo `omop-etl-<source>` (e.g., `omop-etl-my-source`).
 3. Clone locally alongside other workspace repos.
 4. Edit `config.R` — replace every `YOUR_*` placeholder with real values.
 5. Populate `mappings/field_map.csv` and `mappings/value_map.csv` from the source data dictionary.

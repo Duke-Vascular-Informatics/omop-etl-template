@@ -16,7 +16,7 @@
 #
 #   INST_OMOP_RESULTS_SCHEMA  Dedicated ETL write schema in the protected
 #                              environment (set when Duke provides it).
-#                              Format: schema_name  (e.g. vqi_infra_etl)
+#                              Format: schema_name  (e.g. my_source_etl)
 #
 #   CRAN_MIRROR          Duke CRAN mirror (already in .env).
 #
@@ -43,7 +43,7 @@
 #   cp .env.example .env      # fill in schema, source paths, connection details
 #   bash setup_env.sh         # Step 1: Java + Kerberos
 #   bash install_r_packages.sh # Step 2: R packages (first time only)
-#   # Place VQI flat-file CSV in data/raw/
+#   # Place source flat-file CSV in data/raw/
 #   conda activate openjdk
 #   bash run_etl.sh --file-tag INFRA_PROC_20231201 --csv infra_proc_20231201.csv
 # =============================================================================

@@ -100,7 +100,7 @@ Never write a concept ID into code or CSV without the tag and a trailing comment
 ## Mapping Decisions Log
 
 For every non-obvious field mapping, append to `docs/mapping_decisions.md`:
-- VQI/source field name and allowed values
+- Source field name and allowed values
 - OMOP target table and column
 - Concept ID(s) with source tag
 - Rationale (why this mapping; alternatives considered)

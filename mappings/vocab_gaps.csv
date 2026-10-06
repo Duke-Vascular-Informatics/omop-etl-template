@@ -1,1 +1,1 @@
-gap_id,vqi_variable,vqi_code,clinical_meaning,gap_type,resolution_pathway,resolution_likelihood,priority,omop_field,last_queried,ohdsi_submission_url,status,notes
+gap_id,source_variable,source_code,clinical_meaning,gap_type,resolution_pathway,resolution_likelihood,priority,omop_field,last_queried,ohdsi_submission_url,status,notes
