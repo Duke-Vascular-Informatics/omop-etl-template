@@ -53,6 +53,14 @@ omop-etl-template/
 - Java 17 (Eclipse Adoptium) — required for `DatabaseConnector` / `rJava`
 - SQL Server target instance with a pre-created OMOP CDM v5.4 schema
 
+## Deployment
+
+Packaging and deploying the ETL into an institution's secure analytic environment
+(bundle building, site GitLab, authentication, package mirrors) is specific to each
+institution and is **not** part of this template. Keep that in your own site-deploy
+repo (bucket 4 of [charon](https://github.com/Duke-Vascular-Informatics/charon#multi-repo-analysis-pipeline)'s
+Multi-Repo Analysis Pipeline).
+
 ## Data governance
 
 Source data files are governed by the originating registry's Data Use Agreement.
