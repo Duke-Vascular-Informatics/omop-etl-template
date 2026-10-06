@@ -5,7 +5,7 @@
 # Builds and publishes the YOUR_ETL_NAME → OMOP ETL transportable bundle for
 # execution in the protected research environment.
 #
-# PREREQUISITES — set in OMOP_Dev/.env before running:
+# PREREQUISITES — set in <workspace>/.env before running:
 #
 #   ETL_GITLAB_REMOTE    Full SSH URL of the target GitLab repo.
 #                        e.g. git@gitlab.example.org:your-group/YOUR_ETL_NAME.git
@@ -93,7 +93,7 @@ if [[ "$ETL_GITLAB_REMOTE" == "CHANGE_ME" || -z "$ETL_GITLAB_REMOTE" ]]; then
   echo "  This is expected until your GitLab repository is created."
   echo "  When ready:"
   echo "    1. Create the repo on GitLab."
-  echo "    2. Add to OMOP_Dev/.env:"
+  echo "    2. Add to <workspace>/.env:"
   echo "         ETL_GITLAB_REMOTE=git@gitlab.example.com:<username>/YOUR_ETL_NAME.git"
   echo "    3. Re-run this script."
   echo ""
@@ -279,7 +279,7 @@ fi
 if [[ "$DRY_RUN" == "true" ]]; then
   echo ""
   echo "  [DRY RUN] Bundle populated but NOT pushed to GitLab."
-  echo "  Set ETL_GITLAB_REMOTE in OMOP_Dev/.env and re-run to push."
+  echo "  Set ETL_GITLAB_REMOTE in <workspace>/.env and re-run to push."
 else
   # Verify SSH connectivity to GitLab host
   GITLAB_HOST=$(echo "$ETL_GITLAB_REMOTE" | sed 's|git@\([^:]*\):.*|\1|')
@@ -321,7 +321,7 @@ echo ""
 echo "  NEXT STEPS:"
 if [[ "$DRY_RUN" == "true" ]]; then
 echo "  1. Create the GitLab repo at your institution."
-echo "  2. Add ETL_GITLAB_REMOTE to OMOP_Dev/.env."
+echo "  2. Add ETL_GITLAB_REMOTE to <workspace>/.env."
 echo "  3. Re-run this script to push."
 else
 echo "  1. On the protected research environment:"
@@ -332,5 +332,5 @@ echo "       bash setup_env.sh"
 echo "       bash install_r_packages.sh"
 fi
 echo "  2. When your institution provides your schema, update INST_OMOP_RESULTS_SCHEMA"
-echo "     in .env (protected environment) AND in OMOP_Dev/.env (local)."
+echo "     in .env (protected environment) AND in <workspace>/.env (local)."
 echo "======================================================================"
