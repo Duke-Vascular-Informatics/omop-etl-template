@@ -35,7 +35,7 @@ map_visit <- function(staged, person_map, config, connection_details) {
 
       # Flat-file provenance tag + encounter/procedure ID for row-level traceability.
       # Format: "{source_file_tag}:{YOUR_PATIENT_ID_FIELD}"
-      # e.g. "REGISTRY_PROC_20231201:12345678"
+      # e.g. "REGISTRY_INDEX_20231201:12345678"
       # source_file is stamped on every staged row by stage_raw.R.
       # All OMOP domain rows carry visit_occurrence_id; analysts recover the
       # source flat file by joining to visit_occurrence on visit_occurrence_id

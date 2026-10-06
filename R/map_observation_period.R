@@ -8,7 +8,7 @@
 # OMOP ref: https://ohdsi.github.io/CommonDataModel/cdm54.html#OBSERVATION_PERIOD
 # Notes   : For registry ETLs with a single index visit per person, the
 #           observation period typically spans the index visit. If follow-up
-#           data are loaded (LTF), re-run this module after LTF mapping to
+#           data are loaded (follow-up files), re-run this module after follow-up mapping to
 #           extend the period to cover follow-up dates.
 # TODO [MAPPING]: Confirm observation period date logic for this registry
 # =============================================================================

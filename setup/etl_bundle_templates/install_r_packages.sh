@@ -17,7 +17,7 @@
 #      JAVA_HOME is set correctly before R package compilation begins.
 #   2. Runs `Rscript install_packages.R`, which:
 #        a. Verifies JAVA_HOME and jni.h are present (required for rJava).
-#        b. Installs all required R packages from the Duke CRAN mirror,
+#        b. Installs all required R packages from the configured CRAN mirror,
 #           skipping any that are already installed.
 #        c. Verifies all packages load successfully and prints a summary.
 #
@@ -131,6 +131,6 @@ cat <<SUMMARY
        bash run_etl.sh
 
   Confirm OMOP_RESULTS_SCHEMA in .env is set to your write schema
-  (format: domain\netid) before running the analysis.
+  (format: domain\username) before running the analysis.
 ======================================================================
 SUMMARY

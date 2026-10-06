@@ -32,7 +32,7 @@ if (file.exists(".env")) {
 }
 
 options(repos = c(CRAN = Sys.getenv("CRAN_MIRROR",
-                                    unset = "https://archive.linux.duke.edu/cran/")))
+                                    unset = "https://cloud.r-project.org")))
 
 source("R/connection.R")
 source("R/utils.R")

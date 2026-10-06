@@ -41,7 +41,7 @@ stage_raw <- function(config) {
 
   # ---------------------------------------------------------------------------
   # Stamp flat-file provenance on every row.
-  # source_file carries config$source_file_tag (e.g. "REGISTRY_PROC_20231201")
+  # source_file carries config$source_file_tag (e.g. "REGISTRY_INDEX_20231201")
   # so that map_visit.R can write it into visit_occurrence.visit_source_value
   # and every downstream domain row inherits traceable provenance via
   # visit_occurrence_id. Never hardcode a file name in map_*.R — always read

@@ -74,7 +74,7 @@ echo "      java -version: $(java -version 2>&1 | head -1)"
 echo ""
 
 # -----------------------------------------------------------------------------
-# Step 2 — Kerberos ticket (NetID authentication for SQL Server)
+# Step 2 — Kerberos ticket (institutional authentication for SQL Server)
 # -----------------------------------------------------------------------------
 echo "[2/2] Obtaining Kerberos ticket (enter your institutional credentials) ..."
 
@@ -85,7 +85,7 @@ if klist -s 2>/dev/null; then
   EXPIRY=$(klist 2>&1 | awk '/Expires/{found=1; next} found{print $1, $2; exit}')
   echo "      Ticket valid. Expires: ${EXPIRY:-unknown}"
 else
-  echo "WARNING: kinit succeeded but no valid ticket found. Check your NetID password."
+  echo "WARNING: kinit succeeded but no valid ticket found. Check your institutional password."
 fi
 echo ""
 
@@ -109,7 +109,7 @@ cat <<SUMMARY
        bash run_etl.sh
 
   Before running the analysis, confirm OMOP_RESULTS_SCHEMA in .env is
-  set to your personal write schema (format: domain\netid).
+  set to your personal write schema (format: domain\username).
 
   The HPC support team JDBC wrapper JAR must be in place at:
        $(dirname "$BUNDLE_DIR")/drivers/hpc-jdbc-wrapper.jar
