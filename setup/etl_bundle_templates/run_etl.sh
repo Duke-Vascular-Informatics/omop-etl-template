@@ -7,7 +7,7 @@
 # USAGE:
 #   conda activate openjdk
 #   export KRB5CCNAME=FILE:~/krb5cc_java && kinit
-#   bash run_etl.sh [--file-tag REGISTRY_PROC_20231201] [--csv source_proc_20231201.csv]
+#   bash run_etl.sh [--file-tag REGISTRY_INDEX_20231201] [--csv source_proc_20231201.csv]
 #
 # OPTIONS:
 #   --file-tag   Override ETL_SOURCE_FILE_TAG (default: value in .env)

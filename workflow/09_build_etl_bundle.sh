@@ -8,17 +8,18 @@
 # PREREQUISITES — set in OMOP_Dev/.env before running:
 #
 #   ETL_GITLAB_REMOTE    Full SSH URL of the target GitLab repo.
-#                        e.g. git@gitlab.dhe.duke.edu:apj20/YOUR_ETL_NAME.git
+#                        e.g. git@gitlab.example.org:your-group/YOUR_ETL_NAME.git
 #                        Set to CHANGE_ME until the GitLab repo is created.
 #
 #   BUNDLE_GIT_USER_NAME   Your name for bundle git commits.
 #   BUNDLE_GIT_USER_EMAIL  Your institutional email for bundle git commits.
 #
 #   INST_OMOP_RESULTS_SCHEMA  Dedicated ETL write schema in the protected
-#                              environment (set when Duke provides it).
-#                              Format: schema_name  (e.g. vqi_infra_etl)
+#                              environment (set when your institution provides it).
+#                              Format: schema_name  (e.g. my_source_etl)
 #
-#   CRAN_MIRROR          Duke CRAN mirror (already in .env).
+#   CRAN_MIRROR          CRAN mirror reachable from the protected environment
+#                        (already in .env; defaults to cloud.r-project.org).
 #
 # WHAT THIS SCRIPT DOES:
 #   1. Copies all ETL source files into portable/YOUR_ETL_NAME/
@@ -43,9 +44,9 @@
 #   cp .env.example .env      # fill in schema, source paths, connection details
 #   bash setup_env.sh         # Step 1: Java + Kerberos
 #   bash install_r_packages.sh # Step 2: R packages (first time only)
-#   # Place VQI flat-file CSV in data/raw/
+#   # Place source flat-file CSV in data/raw/
 #   conda activate openjdk
-#   bash run_etl.sh --file-tag INFRA_PROC_20231201 --csv infra_proc_20231201.csv
+#   bash run_etl.sh --file-tag REGISTRY_INDEX_20231201 --csv registry_index_20231201.csv
 # =============================================================================
 
 set -euo pipefail
@@ -72,7 +73,7 @@ fi
 ETL_GITLAB_REMOTE="${ETL_GITLAB_REMOTE:-CHANGE_ME}"
 BUNDLE_GIT_USER_NAME="${BUNDLE_GIT_USER_NAME:-${GIT_AUTHOR_NAME:-}}"
 BUNDLE_GIT_USER_EMAIL="${BUNDLE_GIT_USER_EMAIL:-${GIT_AUTHOR_EMAIL:-}}"
-CRAN_MIRROR="${CRAN_MIRROR:-https://archive.linux.duke.edu/cran/}"
+CRAN_MIRROR="${CRAN_MIRROR:-https://cloud.r-project.org}"
 
 echo ""
 echo "======================================================================"
@@ -93,7 +94,7 @@ if [[ "$ETL_GITLAB_REMOTE" == "CHANGE_ME" || -z "$ETL_GITLAB_REMOTE" ]]; then
   echo "  When ready:"
   echo "    1. Create the repo on GitLab."
   echo "    2. Add to OMOP_Dev/.env:"
-  echo "         ETL_GITLAB_REMOTE=git@gitlab.example.com:<netid>/YOUR_ETL_NAME.git"
+  echo "         ETL_GITLAB_REMOTE=git@gitlab.example.com:<username>/YOUR_ETL_NAME.git"
   echo "    3. Re-run this script."
   echo ""
   echo "  Continuing with dry-run (bundle directory populated but not pushed)."
@@ -218,8 +219,8 @@ ETL_SOURCE_DIR=/path/to/source/data/raw
 
 # Flat-file provenance tag — identifies the specific file and data release.
 # Format: {REGISTRY}_{FILETYPE}_{YYYYMMDD}
-# Examples: REGISTRY_PROC_20231201  REGISTRY_LTF_20231201
-ETL_SOURCE_FILE_TAG=REGISTRY_PROC_CHANGE_ME
+# Examples: REGISTRY_INDEX_20231201  REGISTRY_FOLLOWUP_20231201
+ETL_SOURCE_FILE_TAG=REGISTRY_INDEX_CHANGE_ME
 
 # Exact CSV filename to load (must be present in ETL_SOURCE_DIR)
 ETL_SOURCE_FILE=source_proc_CHANGE_ME.csv
@@ -242,7 +243,7 @@ OMOP_VOCAB_SCHEMA=omop_vocab
 MSSQL_SERVER=your.protected.sqlserver.example.edu
 MSSQL_DATABASE=your_database
 MSSQL_PORT=1433
-MSSQL_USER=DOMAIN\\your_netid
+MSSQL_USER=DOMAIN\\your_username
 
 # HPC JDBC wrapper JAR path (provided by HPC support team)
 # Place one level above the bundle: ../drivers/hpc-jdbc-wrapper.jar
@@ -319,7 +320,7 @@ echo "  Bundle build complete: $(date)"
 echo ""
 echo "  NEXT STEPS:"
 if [[ "$DRY_RUN" == "true" ]]; then
-echo "  1. Create the GitLab repo at Duke."
+echo "  1. Create the GitLab repo at your institution."
 echo "  2. Add ETL_GITLAB_REMOTE to OMOP_Dev/.env."
 echo "  3. Re-run this script to push."
 else

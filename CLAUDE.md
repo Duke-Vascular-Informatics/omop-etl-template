@@ -48,15 +48,15 @@ working directory, so always supply the full absolute path.
 
 ## Flat-File Provenance Convention
 
-When a source registry provides multiple flat files (e.g. procedure file + longitudinal
+When a source registry provides multiple flat files (e.g. index file + longitudinal
 follow-up file), every ETL run must declare which file it is loading via the
 `ETL_SOURCE_FILE_TAG` environment variable (see `config.R`). Adapt these tag patterns
 to your registry:
 
 | Tag pattern | Flat file | Example |
 |-------------|-----------|---------|
-| `REGISTRY_PROC_{YYYYMMDD}` | Index procedure file | `REGISTRY_PROC_20231201` |
-| `REGISTRY_LTF_{YYYYMMDD}`  | Longitudinal follow-up file | `REGISTRY_LTF_20231201` |
+| `REGISTRY_INDEX_{YYYYMMDD}` | Index file | `REGISTRY_INDEX_20231201` |
+| `REGISTRY_FOLLOWUP_{YYYYMMDD}` | Longitudinal follow-up file | `REGISTRY_FOLLOWUP_20231201` |
 
 The `YYYYMMDD` date matches the release date embedded in the source file name.
 
@@ -65,14 +65,14 @@ The `YYYYMMDD` date matches the release date embedded in the source file name.
 1. `stage_raw.R` stamps `source_file = config$source_file_tag` on every row of
    the staged data frame.
 2. `map_visit.R` writes `visit_source_value = "{source_file_tag}:{PATIENT_ID}"`
-   — e.g. `"REGISTRY_PROC_20231201:12345678"`.
+   — e.g. `"REGISTRY_INDEX_20231201:12345678"`.
 3. Every other OMOP domain row already carries `visit_occurrence_id`. Analysts
    recover provenance by joining to `visit_occurrence` and reading
    `visit_source_value`.
 
-**LTF files must create their own `visit_occurrence` rows** (follow-up visits)
-rather than linking follow-up observations to the index PROC visit. This ensures
-that `"REGISTRY_LTF:{ID}"` rows are never confused with `"REGISTRY_PROC:{ID}"`
+**Follow-up files must create their own `visit_occurrence` rows** (follow-up visits)
+rather than linking follow-up observations to the index visit. This ensures
+that `"REGISTRY_FOLLOWUP:{ID}"` rows are never confused with `"REGISTRY_INDEX:{ID}"`
 rows in temporal or provenance queries.
 
 **Never hardcode a flat-file name** in any `map_*.R` file. Always read it from
@@ -100,7 +100,7 @@ Never write a concept ID into code or CSV without the tag and a trailing comment
 ## Mapping Decisions Log
 
 For every non-obvious field mapping, append to `docs/mapping_decisions.md`:
-- VQI/source field name and allowed values
+- Source field name and allowed values
 - OMOP target table and column
 - Concept ID(s) with source tag
 - Rationale (why this mapping; alternatives considered)

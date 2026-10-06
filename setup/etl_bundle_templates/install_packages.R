@@ -5,11 +5,12 @@
 # Installs all R packages required to run the YOUR_ETL_NAME → OMOP ETL pipeline.
 # Do not run directly — use the wrapper: bash install_r_packages.sh
 #
-# All packages are available on CRAN. Uses the Duke CRAN mirror accessible
-# from the protected research environment without external internet access.
+# All packages are available on CRAN. Uses the mirror named by the CRAN_MIRROR
+# environment variable (set it to an internal mirror if the protected research
+# environment has no external internet access).
 # =============================================================================
 
-options(repos = c(CRAN = "https://archive.linux.duke.edu/cran/"))
+options(repos = c(CRAN = Sys.getenv("CRAN_MIRROR", unset = "https://cloud.r-project.org")))
 
 message("Installing R packages for YOUR_ETL_NAME ETL bundle ...")
 message("CRAN mirror: ", getOption("repos")["CRAN"])
