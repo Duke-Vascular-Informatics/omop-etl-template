@@ -19,7 +19,7 @@ authors:
     orcid: "https://orcid.org/0000-0002-3014-6372"
 repository-code: "https://github.com/Duke-Vascular-Informatics/omop-etl-template"
 license: GPL-2.0-only
-date-released: "2026-05-17"
+date-released: "2026-10-07"
 keywords:
   - OMOP CDM
   - OHDSI
