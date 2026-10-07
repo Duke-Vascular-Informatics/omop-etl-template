@@ -1,5 +1,7 @@
 # omop-etl-template
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23213935.svg)](https://doi.org/10.5281/zenodo.23213935)
+
 **GitHub Template Repository** — Scaffold for building a transportable ETL pipeline from
 any tabular source registry (CSV / flat files) to **OMOP Common Data Model v5.4** on SQL Server.
 
